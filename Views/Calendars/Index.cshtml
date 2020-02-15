@@ -1,0 +1,88 @@
+﻿@model WardRobe.Models.Calendar
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div><br /></div>
+<form action="/Calendars/Create">
+    <input type="submit" value="Insert your style of the Day" class="btn btn-default" />
+</form>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <br />
+            <div id="bootstrapModalFullCalendar"></div>
+        </div>
+    </div>
+</div>
+
+<div id="fullCalModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span><span class="sr-only">close</span>
+                </button>
+                <h4 id="modalTitle" class="modal-title"></h4>
+            </div>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;<u>My Outfit of the Day:</u>
+            <div id="modalBody" class="modal-body"></div>
+            <div id="itemId" class="modal-body" style="display:none"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <form id="target" action="/Calendars" style="display:inline">
+                    <input id="calendarId" asp-for=" Id" style="display:none" />
+                    <script type="text/javascript">
+                            setInterval(function () {
+                                document.getElementById("calendarId").value = document.getElementById("itemId").innerHTML;
+                            }, 5);
+                    </script>
+                    <input type="submit" value="Edit" class="btn btn-primary" asp-action="Edit" />
+                    <input type="submit" value="Delete" class="btn btn-danger" asp-action="Delete" />
+                </form>
+
+
+
+                <form action="/Calendars/Delete" style="display:inline">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.css" type="text/css" rel="stylesheet" />
+
+@section Scripts
+    {
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#bootstrapModalFullCalendar').fullCalendar({
+                height: 520, //this is to set the overall size of the display of the calendar. Height affects both height & width
+                header: {
+                    left: '',
+                    center: 'prev title next',
+                    right: ''
+                },
+                eventClick: function (ootd, jsEvent, view) {
+                    $('#itemId').html(ootd.id);
+                    $('#modalTitle').html(ootd.title);
+                    $('#modalBody').html(ootd.description);
+                    $('#modalLocation').html(ootd.locate);
+                    $('#eventUrl').attr('href', ootd.url);
+                    $('#fullCalModal').modal();
+                    return false;
+                },
+                events: '@Url.Action("findall", "ootd")'
+            });
+        });
+    </script>
+}

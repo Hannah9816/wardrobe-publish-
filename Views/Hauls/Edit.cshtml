@@ -1,0 +1,63 @@
+﻿@model WardRobe.Models.Haul
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PartitionKey" class="control-label">Category:</label>
+                <select asp-for="PartitionKey" class="form-control">
+                    <option value="Shirt">Shirt</option>
+                    <option value="Dress">Dress</option>
+                    <option value="Pants">Pants</option>
+                    <option value="Undergarments">Undergarments</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Others">Others</option>
+                </select>
+
+                <span asp-validation-for="PartitionKey" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RowKey" class="control-label"></label>
+                <input asp-for="RowKey" class="form-control" />
+                <span asp-validation-for="RowKey" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="clothes" class="control-label"></label>
+                <input asp-for="clothes" class="form-control" />
+                <span asp-validation-for="clothes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="brand" class="control-label"></label>
+                <input asp-for="brand" class="form-control" />
+                <span asp-validation-for="brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="control-label"></label>
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
