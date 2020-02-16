@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,39 +14,34 @@ namespace WardRobe.Views.Calendarr
     public class CalendarsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public CalendarsController(ApplicationDbContext context)
+        public CalendarsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Calendars
         public async Task<IActionResult> Index()
         {
+           
+
             return View();
         }
 
-        // GET: Calendars/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var calendar = await _context.Calendar
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (calendar == null)
-            {
-                return NotFound();
-            }
-
-            return View(calendar);
-        }
 
         // GET: Calendars/Create
         public IActionResult Create()
         {
+            ViewBag.userid = _userManager.GetUserId(HttpContext.User);
+
+            var userid = _userManager.GetUserId(HttpContext.User);
+
+            var wardrobe = from m in _context.Wardrobe select m;
+
+            ViewData["wardrobe"] = wardrobe.Where(m => m.UserId.Contains(userid)).ToList();
+
             return View();
         }
 
@@ -54,10 +50,12 @@ namespace WardRobe.Views.Calendarr
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,StartDate,EndDate,WardRobeId")] Calendar calendar)
+        public async Task<IActionResult> Create([Bind("Id,Description,StartDate,EndDate,UserId,WardRobeId")] Calendar calendar)
         {
+            ViewBag.userid = _userManager.GetUserId(HttpContext.User);
             if (ModelState.IsValid)
             {
+                var wardrobe = from m in _context.Wardrobe select m;
                 _context.Add(calendar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -78,6 +76,13 @@ namespace WardRobe.Views.Calendarr
             {
                 return NotFound();
             }
+
+            var userid = _userManager.GetUserId(HttpContext.User);
+
+            var wardrobe = from m in _context.Wardrobe select m;
+
+            ViewData["wardrobe"] = wardrobe.Where(m => m.UserId.Contains(userid)).ToList();
+
             return View(calendar);
         }
 
@@ -86,7 +91,7 @@ namespace WardRobe.Views.Calendarr
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,StartDate,EndDate")] Calendar calendar)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,StartDate,EndDate,UserId")] Calendar calendar)
         {
             if (id != calendar.Id)
             {

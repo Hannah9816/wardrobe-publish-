@@ -33,11 +33,24 @@ namespace WardRobe.Views.Wardrobes
         // GET: Wardrobes
         public async Task<IActionResult> Index(string searchString)
         {
+       
             ViewBag.userid = _userManager.GetUserId(HttpContext.User);
 
             var userid = _userManager.GetUserId(HttpContext.User);
 
             var wardrobe = from m in _context.Wardrobe select m;
+            IQueryable<string> TypeQuery = from m in _context.Wardrobe
+                                           orderby m.Name
+                                           select m.Name;
+            IEnumerable<SelectListItem> items =
+                new SelectList(await TypeQuery.Distinct().ToListAsync());
+
+            ViewBag.WardrobeName = items;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                wardrobe = wardrobe.Where(m => m.Name == searchString && m.UserId.Contains(userid));
+            }
 
             if (!String.IsNullOrEmpty(userid))
             {
@@ -75,7 +88,7 @@ namespace WardRobe.Views.Wardrobes
 
             //Once link, time to read content from connection string
             CloudStorageAccount objectaccount =
-                CloudStorageAccount.Parse(configure["ConnectionStrings:wardrobe2"]);
+                CloudStorageAccount.Parse(configure["ConnectionStrings:wardrobe3"]);
             CloudBlobClient blobclient = objectaccount.CreateCloudBlobClient();
 
             //create the container inside the stroage account

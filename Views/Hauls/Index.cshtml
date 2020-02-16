@@ -4,92 +4,99 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 
-<div class="container">
-    <h2 class="text-center">Wardrobe</h2>
-
-    <form>
+    <div class="container">
+        <h2 class="text-center" style="font-family:'Freestyle Script'; font-size:50px; color:darkturquoise">Shopping List</h2>
         <p>
-            Category: @Html.DropDownList("Category", "All")
-
-            <input type="submit" value="Search" />
+             <a class="btn btn-info" asp-action="Create"> Create New </a>
         </p>
-    </form>
+        
+        <form asp-action="Index">
+            <p>
+                Category: <select type="text" name="Category">
+                    <option value="Shirt">All</option>
+                    <option value="Shirt">Shirt</option>
+                    <option value="Dress">Dress</option>
+                    <option value="Pants">Pants</option>
+                    <option value="Undergarments">Undergarments</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Others">Others</option>
+                </select>
+
+                <input type="submit" value="Search" />
+            </p>
+        </form>
 
 
-    @foreach (var item in Model)
-    {
-        <div class="col-md-3" style="margin-bottom:25px">
-            <div class="thumbnail">
-                <div class="image" style="margin-bottom:20px">
-                    @if (@item.PartitionKey == "Shirt")
-                    {
-                        <img class="img-responsive" src="~/tshirt.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
-                    }
-                    else if (@item.PartitionKey == "Dress")
-                    {
-                        <img class="img-responsive" src="~/garment.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
-                    }
-                    else if (@item.PartitionKey == "Undergarments")
-                    {
-                        <img class="img-responsive" src="~/bikini.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
-                    }
-                    else if (@item.PartitionKey == "Pants")
-                    {
-                        <img class="img-responsive" src="~/jean.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
-                    }
-                    else if (@item.PartitionKey == "Accessories")
-                    {
-                        <img class="img-responsive" src="~/hat.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
-                    }
-                    else
-                    {
-                        <img class="img-responsive" src="~/tailor.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
-                    }
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3" style="margin-bottom:25px">
+                <div class="thumbnail">
+                    <div class="image" style="margin-bottom:20px">
+                        @if (@item.PartitionKey == "Shirt")
+                        {
+                            <img class="img-responsive" src="~/tshirt.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else if (@item.PartitionKey == "Dress")
+                        {
+                            <img class="img-responsive" src="~/garment.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else if (@item.PartitionKey == "Undergarments")
+                        {
+                            <img class="img-responsive" src="~/bikini.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else if (@item.PartitionKey == "Pants")
+                        {
+                            <img class="img-responsive" src="~/jean.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else if (@item.PartitionKey == "Accessories")
+                        {
+                            <img class="img-responsive" src="~/hat.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else
+                        {
+                            <img class="img-responsive" src="~/tailor.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
 
-                </div>
-                <div class="caption" style="border-top:3px solid #808080">
+                    </div>
+                    <div class="caption" style="border-top:3px solid #808080">
 
-                    @{
-                        var detail = new Dictionary<string, string>
-                                                {
+                        @{
+                            var detail = new Dictionary<string, string>
+                                                                        {
                             { "partitionkey", item.PartitionKey},
                             { "rowkey", item.RowKey}
                         };
-                    }
-                    <h3 style="text-align:center">@item.clothes </h3>
-                    <h5>
-                        Category: @item.PartitionKey
-                        <br />
-                        Brand: @item.brand
-                        <br />
-                        Description: @item.description
-                    </h5>
+                        }
+                        <h3 style="text-align:center">@item.clothes </h3>
+                        <h5>
+                            Category: @item.PartitionKey
+                            <br />
+                            Brand: @item.brand
+                            <br />
+                            Description: @item.description
+                        </h5>
 
-                    @{
-                        var param = new Dictionary<string, string>
-                                               {
+                        @{
+                            var param = new Dictionary<string, string>
+                                                                       {
                         { "partitionkey", item.PartitionKey},
                         { "rowkey", item.RowKey}
                    };
-                    }
-                    <div style="text-align:center">
-                        <a asp-action="Edit" asp-all-route-data="param">Edit</a> |
+                        }
+                        <div style="text-align:center">
+                            <a asp-action="Edit" asp-all-route-data="param">Edit</a> |
 
-                        <a asp-action="Delete" asp-all-route-data="param">Delete</a>
+                            <a asp-action="Delete" asp-all-route-data="param">Delete</a>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
 
-</div>
+    </div>
 
 
 
