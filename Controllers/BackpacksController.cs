@@ -121,6 +121,16 @@ namespace WardRobe.Views.Backpacks
             {
                 return NotFound();
             }
+            var userid = _userManager.GetUserId(HttpContext.User);
+
+            var wardrobe = from m in _context.Wardrobe select m;
+
+            var trip = from t in _context.Trip select t;
+
+            ViewData["wardrobe"] = wardrobe.Where(m => m.UserId.Contains(userid)).ToList();
+
+            ViewData["trip"] = trip.Where(t => t.UserId.Contains(userid)).ToList();
+
             return View(backpack);
         }
 

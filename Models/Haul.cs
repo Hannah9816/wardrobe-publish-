@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.WindowsAzure.Storage.Table;
+
 namespace WardRobe.Models
 {
     public class Haul: TableEntity
@@ -18,7 +15,7 @@ namespace WardRobe.Models
         [Display(Name = "Category")]
         public string category { get; set; }
 
-        [Display(Name = "Clothes")]
+        [Display(Name = "Name")]
         public string clothes { get; set; }
 
         [Display(Name = "Brand")]

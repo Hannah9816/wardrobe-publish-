@@ -26,20 +26,17 @@
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">x</span><span class="sr-only">close</span>
                 </button>
-                <h4 id="modalTitle" class="modal-title"></h4>
+                <h4 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">My Outfit of the Day</h4>
             </div>
-
-            &nbsp;&nbsp;&nbsp;&nbsp;<u>My Outfit of the Day:</u>
-            <div id="modalBody" class="modal-body"></div>
+            <div id="modalBody" class="modal-body" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"></div>
             <div id="itemId" class="modal-body" style="display:none"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <form id="target" action="/Calendars" style="display:inline">
                     <input id="calendarId" asp-for=" Id" style="display:none" />
                     <script type="text/javascript">
-                            setInterval(function () {
-                                document.getElementById("calendarId").value = document.getElementById("itemId").innerHTML;
-                            }, 5);
+                        setInterval(function () {
+                            document.getElementById("calendarId").value = document.getElementById("itemId").innerHTML;
+                        }, 5);
                     </script>
                     <input type="submit" value="Edit" class="btn btn-primary" asp-action="Edit" />
                     <input type="submit" value="Delete" class="btn btn-danger" asp-action="Delete" />

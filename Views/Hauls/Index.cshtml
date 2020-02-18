@@ -15,13 +15,20 @@
         <form asp-action="Index">
             <p>
                 Category: <select type="text" name="Category">
-                    <option value="Shirt">All</option>
-                    <option value="Shirt">Shirt</option>
-                    <option value="Dress">Dress</option>
-                    <option value="Pants">Pants</option>
-                    <option value="Undergarments">Undergarments</option>
-                    <option value="Accessories">Accessories</option>
-                    <option value="Others">Others</option>
+                <option value="Shirt">All</option>
+                <option value="Shirt">Shirt</option>
+                <option value="Shirt">Shirt</option>
+                <option value="Formal Wear">Formal Wear</option>
+                <option value="Pants">Pants</option>
+                <option value="Shorts">Shorts</option>
+                <option value="Jacket/Hoodie">Jacket/Hoodie</option>
+                <option value="Skirts">Skirts</option>
+                <option value="Dress">Dress</option>
+                <option value="Ladies Undergarments">Ladies Undergarments</option>
+                <option value="Gents Undergarments">Gents Undergarments</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Shoes">Shoes</option>
+                <option value="Others">Others</option>
                 </select>
 
                 <input type="submit" value="Search" />
@@ -36,23 +43,47 @@
                     <div class="image" style="margin-bottom:20px">
                         @if (@item.PartitionKey == "Shirt")
                         {
-                            <img class="img-responsive" src="~/tshirt.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                            <img class="img-responsive" src="~/Haul/shirt.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
                         }
-                        else if (@item.PartitionKey == "Dress")
+                        else if (@item.PartitionKey == "Formal Wear")
                         {
-                            <img class="img-responsive" src="~/garment.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
-                        }
-                        else if (@item.PartitionKey == "Undergarments")
-                        {
-                            <img class="img-responsive" src="~/bikini.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                            <img class="img-responsive" src="~/Haul/tuxedo.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
                         }
                         else if (@item.PartitionKey == "Pants")
                         {
-                            <img class="img-responsive" src="~/jean.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                            <img class="img-responsive" src="~/Haul/jeans.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else if (@item.PartitionKey == "Shorts")
+                        {
+                            <img class="img-responsive" src="~/Haul/shorts.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else if (@item.PartitionKey == "Jacket/Hoodie")
+                        {
+                            <img class="img-responsive" src="~/Haul/sweatshirt.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else if (@item.PartitionKey == "Skirts")
+                        {
+                            <img class="img-responsive" src="~/Haul/skirt.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else if (@item.PartitionKey == "Dress")
+                        {
+                            <img class="img-responsive" src="~/Haul/dress.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else if (@item.PartitionKey == "Ladies Undergarments")
+                        {
+                            <img class="img-responsive" src="~/Haul/bra.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else if (@item.PartitionKey == "Gents Undergarments")
+                        {
+                            <img class="img-responsive" src="~/Haul/underwear.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
                         }
                         else if (@item.PartitionKey == "Accessories")
                         {
-                            <img class="img-responsive" src="~/hat.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                            <img class="img-responsive" src="~/Haul/accessories.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
+                        }
+                        else if (@item.PartitionKey == "Shoes")
+                        {
+                            <img class="img-responsive" src="~/Haul/shoes.png" height="200" width="80" style="display:block; margin-left:auto; margin-right:auto" />
                         }
                         else
                         {
@@ -70,7 +101,7 @@
                         };
                         }
                         <h3 style="text-align:center">@item.clothes </h3>
-                        <h5>
+                        <h5 >
                             Category: @item.PartitionKey
                             <br />
                             Brand: @item.brand

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+    <h2 style="font-family:'Freestyle Script'; font-size:50px; color:darkturquoise">Edit Haul</h2>
 
 <hr />
 <div class="row">
@@ -15,16 +15,22 @@
                 <label asp-for="PartitionKey" class="control-label">Category:</label>
                 <select asp-for="PartitionKey" class="form-control">
                     <option value="Shirt">Shirt</option>
-                    <option value="Dress">Dress</option>
+                    <option value="Formal Wear">Formal Wear</option>
                     <option value="Pants">Pants</option>
-                    <option value="Undergarments">Undergarments</option>
+                    <option value="Shorts">Shorts</option>
+                    <option value="Jacket/Hoodie">Jacket/Hoodie</option>
+                    <option value="Skirts">Skirts</option>
+                    <option value="Dress">Dress</option>
+                    <option value="Ladies Undergarments">Ladies Undergarments</option>
+                    <option value="Gents Undergarments">Gents Undergarments</option>
                     <option value="Accessories">Accessories</option>
+                    <option value="Shoes">Shoes</option>
                     <option value="Others">Others</option>
                 </select>
 
                 <span asp-validation-for="PartitionKey" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none">
                 <label asp-for="RowKey" class="control-label"></label>
                 <input asp-for="RowKey" class="form-control" />
                 <span asp-validation-for="RowKey" class="text-danger"></span>

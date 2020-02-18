@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +13,6 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using WardRobe.Data;
 using WardRobe.Models;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace WardRobe.Views.Wardrobes
 {
@@ -88,18 +85,12 @@ namespace WardRobe.Views.Wardrobes
 
             //Once link, time to read content from connection string
             CloudStorageAccount objectaccount =
-                CloudStorageAccount.Parse(configure["ConnectionStrings:wardrobe3"]);
+                CloudStorageAccount.Parse(configure["ConnectionStrings:wardrobe5"]);
             CloudBlobClient blobclient = objectaccount.CreateCloudBlobClient();
 
             //create the container inside the stroage account
             CloudBlobContainer container = blobclient.GetContainerReference("wardrobe");
             return container;
-        }
-
-        public void GetBlobName()
-        {
-            CloudBlobContainer container = GetCloudBlobContainer();
-
         }
 
         // GET: Wardrobes/Create

@@ -35,6 +35,7 @@ namespace WardRobe.Controllers
             var events = db.Calendar.Where (e => e.UserId== userid).Select(e => new
             {
                 id = e.Id,
+                title = e.Description,
                 description = e.Description,
                 start = e.StartDate.ToString(),
                 end = e.EndDate.ToString(),

@@ -7,8 +7,6 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
 using WardRobe.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -30,7 +28,7 @@ namespace WardRobe.Controllers
                 .AddJsonFile("appsettings.json");
             IConfigurationRoot configuration = builder.Build();
             CloudStorageAccount storageaccount =
-                CloudStorageAccount.Parse(configuration["ConnectionStrings:wardrobe3"]);
+                CloudStorageAccount.Parse(configuration["ConnectionStrings:wardrobe5"]);
             return storageaccount;
         }
 
@@ -65,9 +63,7 @@ namespace WardRobe.Controllers
                 {
                     data = data.Where(m => m.UserId.Contains(userid) && m.PartitionKey.Contains(Category));
                 }
-
                 return View(data);
-
             }
             else
             {
@@ -230,7 +226,7 @@ namespace WardRobe.Controllers
         {
             CloudStorageAccount storageaccount = connectionstrg();
             CloudTableClient tableClient = storageaccount.CreateCloudTableClient();
-            CloudTable table = tableClient.GetTableReference("SymptomTable");
+            CloudTable table = tableClient.GetTableReference("HaulTable");
 
             TableOperation deleteOperation = TableOperation.Delete(new Haul(partitionkey, rowkey) { ETag = "*" });
             TableResult result = table.ExecuteAsync(deleteOperation).Result;
